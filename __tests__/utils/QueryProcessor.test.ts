@@ -33,4 +33,12 @@ describe("QueryProcessor", () => {
             "atchamwa"
           ));
     })
+
+    test('primes', () => {
+        const query = "Which of the following numbers are primes: 19, 22, 30, 94, 57?";
+        const response: string = QueryProcessor(query);
+        expect(response).toBe((
+            "19"
+          ));
+    })
 });
