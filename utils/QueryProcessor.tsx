@@ -32,6 +32,48 @@ function getPrimesFromQuery(query: string): number[] {
     .filter((value) => Number.isInteger(value) && isPrime(value));
 }
 
+function getScrabbleScoreFromQuery(query: string): number | null {
+  const wordMatch = query.match(/scrabble score of\s+([a-z]+)/i);
+
+  if (!wordMatch) {
+    return null;
+  }
+
+  const letterValues: Record<string, number> = {
+    a: 1,
+    b: 3,
+    c: 3,
+    d: 2,
+    e: 1,
+    f: 4,
+    g: 2,
+    h: 4,
+    i: 1,
+    j: 8,
+    k: 5,
+    l: 1,
+    m: 3,
+    n: 1,
+    o: 1,
+    p: 3,
+    q: 10,
+    r: 1,
+    s: 1,
+    t: 1,
+    u: 1,
+    v: 4,
+    w: 4,
+    x: 8,
+    y: 4,
+    z: 10,
+  };
+
+  return wordMatch[1]
+    .toLowerCase()
+    .split("")
+    .reduce((score, letter) => score + (letterValues[letter] ?? 0), 0);
+}
+
 export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("shakespeare")) {
     return (
@@ -52,6 +94,11 @@ export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("prime")) {
     const primeValues = getPrimesFromQuery(query);
     return primeValues.join(", ");
+  }
+
+  if (query.toLowerCase().includes("scrabble score")) {
+    const scrabbleScore = getScrabbleScoreFromQuery(query);
+    return scrabbleScore === null ? "" : scrabbleScore.toString();
   }
 
   return "";

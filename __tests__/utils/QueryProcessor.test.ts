@@ -41,4 +41,12 @@ describe("QueryProcessor", () => {
             "19"
           ));
     })
+
+    test('scrabble score', () => {
+        const query = "What is the scrabble score of banana?";
+        const response: string = QueryProcessor(query);
+        expect(response).toBe((
+            "8"
+          ));
+    })
 });
