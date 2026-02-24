@@ -19,7 +19,7 @@ describe("QueryProcessor", () => {
     });
 
     test('should return name', () => {
-        const query = "name";
+        const query = "what is your name?";
         const response: string = QueryProcessor(query);
         expect(response).toBe((
             "atchamwa"
